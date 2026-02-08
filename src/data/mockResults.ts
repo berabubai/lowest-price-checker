@@ -1,15 +1,16 @@
 import { ProductResult } from '@/components/ProductCard';
+import { getAffiliateUrl } from '@/config/affiliateConfig';
 
 export const generateMockResults = (query: string): ProductResult[] => {
   const stores = [
-    { name: 'Amazon', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg', delivery: 'Free Prime delivery' },
-    { name: 'Best Buy', logo: 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Best_Buy_Logo.svg', delivery: 'Free shipping over $35' },
-    { name: 'Walmart', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Walmart_logo.svg', delivery: 'Free 2-day shipping' },
-    { name: 'Target', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Target_logo.svg', delivery: 'Same day delivery available' },
-    { name: 'Newegg', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Newegg_Logo.svg', delivery: 'Free 3-5 day shipping' },
-    { name: 'B&H Photo', logo: 'https://www.bhphotovideo.com/images/fb-logo-300.png', delivery: 'Free expedited shipping' },
-    { name: 'Costco', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/59/Costco_Wholesale_logo_2010-10-26.svg', delivery: 'Members only' },
-    { name: 'eBay', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg', delivery: 'Varies by seller' },
+    { id: 'amazon', name: 'Amazon', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg', delivery: 'Free Prime delivery' },
+    { id: 'bestbuy', name: 'Best Buy', logo: 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Best_Buy_Logo.svg', delivery: 'Free shipping over $35' },
+    { id: 'walmart', name: 'Walmart', logo: 'https://upload.wikimedia.org/wikipedia/commons/c/ca/Walmart_logo.svg', delivery: 'Free 2-day shipping' },
+    { id: 'target', name: 'Target', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/9a/Target_logo.svg', delivery: 'Same day delivery available' },
+    { id: 'newegg', name: 'Newegg', logo: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Newegg_Logo.svg', delivery: 'Free 3-5 day shipping' },
+    { id: 'bhphoto', name: 'B&H Photo', logo: 'https://www.bhphotovideo.com/images/fb-logo-300.png', delivery: 'Free expedited shipping' },
+    { id: 'costco', name: 'Costco', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/59/Costco_Wholesale_logo_2010-10-26.svg', delivery: 'Members only' },
+    { id: 'ebay', name: 'eBay', logo: 'https://upload.wikimedia.org/wikipedia/commons/1/1b/EBay_logo.svg', delivery: 'Varies by seller' },
   ];
 
   // Generate base price based on query
@@ -32,8 +33,11 @@ export const generateMockResults = (query: string): ProductResult[] => {
     const hasDiscount = Math.random() > 0.5;
     const originalPrice = hasDiscount ? Math.round(price * (1.1 + Math.random() * 0.2) * 100) / 100 : undefined;
     
+    // Generate affiliate URL for this store
+    const affiliateUrl = getAffiliateUrl(store.id, query);
+    
     return {
-      id: `${store.name.toLowerCase()}-${index}`,
+      id: `${store.id}-${index}`,
       store: store.name,
       storeLogo: store.logo,
       productName: `${query} - ${store.name === 'eBay' ? 'Like New' : 'Brand New'} ${Math.random() > 0.5 ? '(Official)' : ''}`.trim(),
@@ -43,7 +47,7 @@ export const generateMockResults = (query: string): ProductResult[] => {
       rating: 3.5 + Math.random() * 1.5,
       reviews: Math.floor(100 + Math.random() * 5000),
       inStock: Math.random() > 0.15,
-      url: `https://${store.name.toLowerCase().replace(/[^a-z]/g, '')}.com/search?q=${encodeURIComponent(query)}`,
+      url: affiliateUrl,
       deliveryInfo: store.delivery,
     };
   }).sort((a, b) => a.price - b.price);

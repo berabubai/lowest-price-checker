@@ -35,31 +35,31 @@ const features = [
 
 export const Features = () => {
   return (
-    <section className="py-16 px-4 bg-secondary/30">
+    <section className="py-12 sm:py-16 px-4 bg-secondary/30">
       <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-foreground mb-3">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2 sm:mb-3">
             Why Use PriceHunt?
           </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
+          <p className="text-sm sm:text-base text-muted-foreground max-w-xl mx-auto px-4">
             Save time and money with our powerful price comparison engine
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {features.map((feature, index) => (
             <div
               key={feature.title}
-              className="group p-6 rounded-2xl bg-card border border-border hover:border-primary/20 hover:shadow-lg transition-all duration-300 animate-slide-up"
+              className="group p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-card border border-border hover:border-primary/20 hover:shadow-lg transition-all duration-300 animate-slide-up"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                <feature.icon className="w-6 h-6 text-primary-foreground" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl gradient-primary flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
+                <feature.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
               </div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">
+              <h3 className="text-base sm:text-lg font-semibold text-foreground mb-1.5 sm:mb-2">
                 {feature.title}
               </h3>
-              <p className="text-muted-foreground text-sm">
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 {feature.description}
               </p>
             </div>
